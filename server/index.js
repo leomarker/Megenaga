@@ -8,6 +8,7 @@ const path = require("path");
 const { fileURLToPath } = require("url");
 const helmet = require("helmet");
 const { register } = require("./controllers/auth");
+const authRoutes = require("./routes/authRoutes");
 /* config */
 
 // const filename = fileURLToPath();
@@ -35,7 +36,8 @@ app.use(helmet());
 
 // const upload = multer({ storage });
 
-app.use("/api/register/", register);
+// app.use("/api/register/", register);
+app.use("/api/auth/", authRoutes);
 /* mongoose connection and server start*/
 const PORT = 5000;
 
