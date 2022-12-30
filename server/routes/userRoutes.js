@@ -1,5 +1,11 @@
 const express = require("express");
+const { getUser, addRemoveFriend } = require("../controllers/user");
 const verify = require("../middleware/auth");
+const {
+  getUser,
+  getUserfriends,
+  addRemoveFriend,
+} = require("../controllers/user");
 
 const router = express.Router();
 
