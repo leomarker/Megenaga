@@ -37,7 +37,7 @@ app.use(helmet());
 // const upload = multer({ storage });
 
 // app.use("/api/register/", register);
-app.use("/api/auth/", authRoutes);
+app.use("/api/", authRoutes);
 /* mongoose connection and server start*/
 const PORT = 5000;
 
