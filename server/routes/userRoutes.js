@@ -1,5 +1,4 @@
 const express = require("express");
-const { getUser, addRemoveFriend } = require("../controllers/user");
 const verify = require("../middleware/auth");
 const {
   getUser,

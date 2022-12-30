@@ -7,9 +7,8 @@ const morgan = require("morgan");
 const path = require("path");
 const { fileURLToPath } = require("url");
 const helmet = require("helmet");
-const { register } = require("./controllers/auth");
 const authRoutes = require("./routes/authRoutes");
-
+const userRoutes = require("./routes/userRoutes");
 /* config */
 
 // const filename = fileURLToPath();
@@ -40,6 +39,8 @@ app.use(helmet());
 // app.use("/api/register/", register);
 app.use("/api/", authRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/posts", postsRoutes);
+
 /* mongoose connection and server start*/
 const PORT = 5000;
 
