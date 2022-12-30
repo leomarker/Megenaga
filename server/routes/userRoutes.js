@@ -4,7 +4,7 @@ const verify = require("../middleware/auth");
 const router = express.Router();
 
 //fetch
-router.get("/:id", verify, getuser);
+router.get("/:id", verify, getUser);
 router.get("/:id/friends", verify, getUserfriends);
 
 //update data
