@@ -1,19 +1,19 @@
 const express = require("express");
-const verify = require("../middleware/auth");
+const router = express.Router();
+
+// const verify = require("../middleware/auth").verifytoken();
 const {
   getUser,
-  getUserfriends,
+  getUserFriends,
   addRemoveFriend,
 } = require("../controllers/user");
 
-const router = express.Router();
-
 //fetch
-router.get("/:id", verify, getUser);
-router.get("/:id/friends", verify, getUserfriends);
+router.get("/:id", getUser);
+router.get("/:id/friends", getUserFriends);
 
 //update data
 
-router.patch("/:id/:friendId", verify, addRemoveFriend);
+router.patch("/:id/:friendId", addRemoveFriend);
 
 module.exports = router;

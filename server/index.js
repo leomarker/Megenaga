@@ -1,7 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-const dontEnv = require("dotenv");
+const env = require("dotenv").config();
 const multer = require("multer");
 const morgan = require("morgan");
 const path = require("path");
@@ -9,11 +9,11 @@ const { fileURLToPath } = require("url");
 const helmet = require("helmet");
 const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
+// const postsRoutes = require("./routes/postsRoutes");
 /* config */
 
 // const filename = fileURLToPath();
 // const dirname = path.dirname(filename);
-dontEnv.config();
 const app = express();
 app.use(express.json());
 app.use(helmet());
@@ -39,10 +39,10 @@ app.use(helmet());
 // app.use("/api/register/", register);
 app.use("/api/", authRoutes);
 app.use("/api/users", userRoutes);
-app.use("/api/posts", postsRoutes);
+// app.use("/api/posts", postsRoutes);
 
 /* mongoose connection and server start*/
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
 mongoose
   .connect(process.env.MONGO_URI)
