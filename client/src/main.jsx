@@ -17,8 +17,8 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { PersistGate } from "redux-persist/integration/react";
-import logger from "redux-logger";
-
+import { ChakraProvider } from "@chakra-ui/react";
+import theme from "./theme";
 const persistConfig = { key: "root", storage, version: 1 };
 const persistedReducer = persistReducer(persistConfig, authReducer);
 
@@ -36,7 +36,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistStore(store)}>
-        <App />
+        <ChakraProvider theme={theme}>
+          <App />
+        </ChakraProvider>
       </PersistGate>
     </Provider>
   </React.StrictMode>
