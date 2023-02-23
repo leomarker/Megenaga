@@ -9,13 +9,13 @@ import {
   color,
 } from "@chakra-ui/react";
 import { useTheme } from "@chakra-ui/react";
-import { Password } from "@mui/icons-material";
+import Form from "./Form";
 
 const LoginPage = () => {
   const theme = useTheme();
   return (
     <>
-      <Flex height="100vh" direction="column" bg="background.default">
+      <Flex h="100vh" direction="column" bg="background.default">
         <Box textAlign="center" bg="background.alt">
           <Text
             fontWeight="extrabold"
@@ -29,40 +29,13 @@ const LoginPage = () => {
         <Flex
           direction="column"
           mx="auto"
-          mt="20"
+          mt="10"
           bg="background.alt"
           p="12"
-          w="30%"
+          w="45%"
           rounded="8"
         >
-          <Box mb="8">
-            <Heading color="primary.main" fontWeight="extrabold">
-              Log In
-            </Heading>
-            <Text fontWeight="hairline" color="neutral.medium">
-              Welcome to Megenaga
-            </Text>
-          </Box>
-
-          <Input
-            placeholder="Megenaga@gmail.com"
-            type={email}
-            variant="filled"
-            mb="6"
-          ></Input>
-          <Input
-            placeholder="***********"
-            type={Password}
-            variant="filled"
-            mb="6"
-          ></Input>
-          <Button
-            bg="primary.main"
-            color="background.alt"
-            _hover={{ color: "primary.main", bg: "background.default" }}
-          >
-            Log In
-          </Button>
+          <Form />
         </Flex>
       </Flex>
     </>
