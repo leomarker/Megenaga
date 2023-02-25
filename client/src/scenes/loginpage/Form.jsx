@@ -12,9 +12,10 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { Formik, Field } from "formik";
-import { InputControl } from "formik-chakra-ui";
 import * as yup from "yup";
 import Dropzone from "react-dropzone";
+import { MdCreate } from "react-icons/md";
+import axios from "axios";
 
 const registerSchema = yup.object().shape({
   firstName: yup.string().required("required"),
@@ -50,7 +51,16 @@ const Form = () => {
   const isLogin = pageType === "login";
   const isSignUp = pageType === "signup";
 
+  const login = async (values, onSubmitProps) => {
+    const formData = new FormData();
+    for (let value in values) {
+      formData.append(value, values[value]);
+    }
+    formData.append("picturePath", values.picture.name);
+  };
+
   const handleFormSubmit = async (values, onSubmitProps) => {
+    console.log("asdfs");
     if (isLogin) await login(values, onSubmitProps);
     if (isSignUp) await register(values, onSubmitProps);
   };
@@ -66,7 +76,7 @@ const Form = () => {
         </Text>
       </Box>
       <Formik
-        // onSubmit={handleFormSubmit}
+        onSubmit={handleFormSubmit}
         initialValues={isLogin ? initialValuesLogin : initialValuesRegister}
         validationSchema={isLogin ? loginSchema : registerSchema}
       >
@@ -74,13 +84,11 @@ const Form = () => {
           values,
           errors,
           touched,
-          handleBlur,
-          handleChange,
           handleSubmit,
           setFieldValue,
           resetForm,
         }) => (
-          <form>
+          <form onSubmit={handleSubmit}>
             {isSignUp && (
               <>
                 <Flex mb="6">
@@ -121,25 +129,33 @@ const Form = () => {
                   <FormErrorMessage>{errors.location}</FormErrorMessage>
                 </FormControl>
                 <Box mb="6">
-                  <Dropzone acceptedFiles=".jpg,.jpeg,.png" multiple={false}>
+                  <Dropzone
+                    acceptedFiles=".jpg,.jpeg,.png"
+                    multiple={false}
+                    onDrop={(acceptedFiles) =>
+                      setFieldValue("picture", acceptedFiles[0])
+                    }
+                  >
                     {({ getRootProps, getInputProps }) => (
                       <Box
                         {...getRootProps()}
                         border="2px"
                         borderStyle="dashed"
                         borderColor="primary.main"
-                        p="2rem"
+                        p="1rem"
                         sx={{ "&:hover": { cursor: "pointer" } }}
                       >
                         <input {...getInputProps()} />
-                        {/* {!values.picture ? (
-                <p>Add Picture Here</p>
-              ) : (
-                <Flex>
-                  <Text>{values.picture.name}</Text>
-                  <EditOutlinedIcon />
-                </Flex>
-              )} */}
+                        {!values.picture ? (
+                          <Text>Add Picture Here</Text>
+                        ) : (
+                          <Flex>
+                            <Text>
+                              {values.picture.name}
+                              <MdCreate />
+                            </Text>
+                          </Flex>
+                        )}
                       </Box>
                     )}
                   </Dropzone>
@@ -171,6 +187,7 @@ const Form = () => {
               color="background.alt"
               w="100%"
               _hover={{ color: "primary.main", bg: "background.default" }}
+              type="submit"
             >
               {isLogin ? "Log In" : "Sign Up"}
             </Button>
@@ -180,10 +197,14 @@ const Form = () => {
               color="neutral.medium"
               mt="4"
               _hover={{ color: "primary.main", cursor: "pointer" }}
+              onClick={() => {
+                setPageType(isLogin ? "signup" : "login");
+                resetForm();
+              }}
             >
               {isLogin
                 ? "Don't have an account? Sign Up here."
-                : "Already have an account ?"}
+                : "Already have an account ? Login here"}
             </Text>
           </form>
         )}
