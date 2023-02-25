@@ -32,7 +32,7 @@ const LoginPage = () => {
           mt="10"
           bg="background.alt"
           p="12"
-          w="45%"
+          w="50%"
           rounded="8"
         >
           <Form />
