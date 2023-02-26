@@ -51,18 +51,29 @@ const Form = () => {
   const isLogin = pageType === "login";
   const isSignUp = pageType === "signup";
 
-  const login = async (values, onSubmitProps) => {
+  const signUp = async (values, onSubmitProps) => {
     const formData = new FormData();
+    console.log(values);
     for (let value in values) {
+      console.log(values[value]);
       formData.append(value, values[value]);
     }
     formData.append("picturePath", values.picture.name);
+
+    console.log(formData);
+    await axios
+      .post("http://localhost:8080/auth/register", {
+        body: formData,
+      })
+      .then((response) => {
+        console.log(response);
+      });
   };
 
   const handleFormSubmit = async (values, onSubmitProps) => {
     console.log("asdfs");
     if (isLogin) await login(values, onSubmitProps);
-    if (isSignUp) await register(values, onSubmitProps);
+    if (isSignUp) await signUp(values, onSubmitProps);
   };
   return (
     <>
@@ -128,6 +139,18 @@ const Form = () => {
                   />
                   <FormErrorMessage>{errors.location}</FormErrorMessage>
                 </FormControl>
+                <FormControl
+                  mb="6"
+                  isInvalid={errors.occupation && touched.occupation}
+                >
+                  <Field
+                    as={Input}
+                    name="occupation"
+                    variant="filled"
+                    placeholder="Occupation"
+                  />
+                  <FormErrorMessage>{errors.occupation}</FormErrorMessage>
+                </FormControl>
                 <Box mb="6">
                   <Dropzone
                     acceptedFiles=".jpg,.jpeg,.png"
@@ -179,6 +202,7 @@ const Form = () => {
                 name="password"
                 variant="filled"
                 placeholder="Password"
+                type="password"
               />
               <FormErrorMessage>{errors.password}</FormErrorMessage>
             </FormControl>

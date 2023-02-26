@@ -15,7 +15,7 @@ const LoginPage = () => {
   const theme = useTheme();
   return (
     <>
-      <Flex h="100vh" direction="column" bg="background.default">
+      <Flex direction="column" bg="background.default">
         <Box textAlign="center" bg="background.alt">
           <Text
             fontWeight="extrabold"
@@ -30,6 +30,7 @@ const LoginPage = () => {
           direction="column"
           mx="auto"
           mt="10"
+          mb="10"
           bg="background.alt"
           p="12"
           w="50%"

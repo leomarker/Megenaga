@@ -13,29 +13,30 @@ exports.register = async (req, res, next) => {
     location,
     occupation,
   } = req.body;
+  console.log(req.body);
 
-  const userExist = await User.findOne({ email: email });
-  if (!userExist) {
-    const salt = await bcrypt.genSalt();
-    const hashedPassword = await bcrypt.hash(password, salt);
-    let user = new User({
-      firstName,
-      lastName,
-      email,
-      password: hashedPassword,
-      picturePath,
-      friends,
-      location,
-      occupation,
-    });
-    await user.save();
-    user.password = undefined;
+  // const userExist = await User.findOne({ email: email });
+  // if (!userExist) {
+  //   const salt = await bcrypt.genSalt();
+  //   const hashedPassword = await bcrypt.hash(password, salt);
+  //   let user = new User({
+  //     firstName,
+  //     lastName,
+  //     email,
+  //     password: hashedPassword,
+  //     picturePath,
+  //     friends,
+  //     location,
+  //     occupation,
+  //   });
+  //   await user.save();
+  //   user.password = undefined;
 
-    console.log(user);
-    res.status(201).json(user);
-  } else {
-    res.status(500).json({ error: "user exists" });
-  }
+  //   console.log(user);
+  //   res.status(201).json(user);
+  // } else {
+  //   res.status(500).json({ error: "user exists" });
+  // }
 };
 
 exports.login = async (req, res, next) => {
