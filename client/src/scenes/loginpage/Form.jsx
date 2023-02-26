@@ -53,21 +53,21 @@ const Form = () => {
 
   const signUp = async (values, onSubmitProps) => {
     const formData = new FormData();
-    console.log(values);
     for (let value in values) {
-      console.log(values[value]);
       formData.append(value, values[value]);
     }
     formData.append("picturePath", values.picture.name);
-
-    console.log(formData);
-    await axios
-      .post("http://localhost:8080/auth/register", {
+    const savedUserResponse = await fetch(
+      "http://localhost:8080/auth/register",
+      {
+        method: "POST",
         body: formData,
-      })
-      .then((response) => {
-        console.log(response);
-      });
+      }
+    );
+
+    const savedUser = await savedUserResponse.json();
+    onSubmitProps.resetForm();
+    console.log(savedUser);
   };
 
   const handleFormSubmit = async (values, onSubmitProps) => {
