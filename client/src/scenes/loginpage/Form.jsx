@@ -15,7 +15,9 @@ import { Formik, Field } from "formik";
 import * as yup from "yup";
 import Dropzone from "react-dropzone";
 import { MdCreate } from "react-icons/md";
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setLogin } from "../../state";
 
 const registerSchema = yup.object().shape({
   firstName: yup.string().required("required"),
@@ -50,6 +52,8 @@ const Form = () => {
   const [pageType, setPageType] = useState("signup");
   const isLogin = pageType === "login";
   const isSignUp = pageType === "signup";
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const signUp = async (values, onSubmitProps) => {
     const formData = new FormData();
@@ -68,8 +72,31 @@ const Form = () => {
     const savedUser = await savedUserResponse.json();
     onSubmitProps.resetForm();
     console.log(savedUser);
+    if (savedUser) {
+      setPageType("login");
+    }
   };
 
+  const login = async (values, onSubmitProps) => {
+    const loggedInResponse = await fetch("http://localhost:8080/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(values),
+    });
+    const loggedIn = await loggedInResponse.json();
+    onSubmitProps.resetForm();
+
+    console.log(loggedIn);
+    if (loggedIn) {
+      dispatch(
+        setLogin({
+          user: loggedIn.user,
+          token: loggedIn.token,
+        })
+      );
+      navigate("/home");
+    }
+  };
   const handleFormSubmit = async (values, onSubmitProps) => {
     console.log("asdfs");
     if (isLogin) await login(values, onSubmitProps);

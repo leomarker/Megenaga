@@ -3,39 +3,41 @@ const jwt = require("jsonwebtoken");
 const User = require("../model/user");
 
 exports.register = async (req, res, next) => {
-  const {
-    firstName,
-    lastName,
-    email,
-    password,
-    picturePath,
-    friends,
-    location,
-    occupation,
-  } = req.body;
-  console.log(req.body);
-
-  const userExist = await User.findOne({ email: email });
-  if (!userExist) {
-    const salt = await bcrypt.genSalt();
-    const hashedPassword = await bcrypt.hash(password, salt);
-    let user = new User({
+  try {
+    const {
       firstName,
       lastName,
       email,
-      password: hashedPassword,
+      password,
       picturePath,
       friends,
       location,
       occupation,
-    });
-    await user.save();
-    user.password = undefined;
+    } = req.body;
 
-    console.log(user);
-    res.status(201).json(user);
-  } else {
-    res.status(500).json({ error: "user exists" });
+    const userExist = await User.findOne({ email: email });
+    console.log(userExist);
+    if (!userExist) {
+      const salt = await bcrypt.genSalt();
+      const hashedPassword = await bcrypt.hash(password, salt);
+      let user = new User({
+        firstName,
+        lastName,
+        email,
+        password: hashedPassword,
+        picturePath,
+        friends,
+        location,
+        occupation,
+      });
+      const savedUser = await user.save();
+      user.password = undefined;
+      res.status(201).json(savedUser);
+    } else {
+      res.status(500).json({ error: "user exists" });
+    }
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
 };
 
@@ -57,7 +59,7 @@ exports.login = async (req, res, next) => {
       user.password = undefined;
       res.status(200).json({ token, user });
     } else {
-      return res.status(400).json({ error: "Invalid  crendentials." });
+      return res.status(400).json({ error: "Invalid  credentials." });
     }
   } else {
     return res.status(400).json({ error: "User dose not exist" });

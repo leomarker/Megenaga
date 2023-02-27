@@ -15,7 +15,7 @@ const LoginPage = () => {
   const theme = useTheme();
   return (
     <>
-      <Flex direction="column" bg="background.default">
+      <Flex direction="column" bg="background.default" h="full">
         <Box textAlign="center" bg="background.alt">
           <Text
             fontWeight="extrabold"
