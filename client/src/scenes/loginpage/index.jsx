@@ -26,6 +26,7 @@ const LoginPage = () => {
             Megenaga
           </Text>
         </Box>
+
         <Flex
           direction="column"
           mx="auto"
