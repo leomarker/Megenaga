@@ -42,26 +42,23 @@ exports.register = async (req, res, next) => {
 };
 
 exports.login = async (req, res, next) => {
-  const { email, password } = req.body;
+  try {
+    const { email, password } = req.body;
+    const user = await User.findOne({ email: email });
 
-  const user = await User.findOne({ email: email });
-  // console.log(user);
-  console.log(email);
-  console.log(password);
-
-  console.log(user);
-
-  if (user) {
+    if (!user) {
+      return res.status(400).json({ error: "User dose not exist" });
+    }
     const match = await bcrypt.compare(password, user.password);
-    if (match) {
-      const secret = "this is jwt";
-      const token = jwt.sign({ id: user._id }, secret);
-      user.password = undefined;
-      res.status(200).json({ token, user });
-    } else {
+    if (!match) {
       return res.status(400).json({ error: "Invalid  credentials." });
     }
-  } else {
-    return res.status(400).json({ error: "User dose not exist" });
+
+    const secret = "this is jwt";
+    const token = jwt.sign({ id: user._id }, secret);
+    user.password = undefined;
+    res.status(200).json({ token, user });
+  } catch (err) {
+    res.status(500).json({ err: err.message });
   }
 };

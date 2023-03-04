@@ -49,7 +49,7 @@ const initialValuesLogin = {
   password: "",
 };
 const Form = () => {
-  const [pageType, setPageType] = useState("signup");
+  const [pageType, setPageType] = useState("login");
   const isLogin = pageType === "login";
   const isSignUp = pageType === "signup";
   const dispatch = useDispatch();
