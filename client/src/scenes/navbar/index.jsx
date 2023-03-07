@@ -119,20 +119,21 @@ const NavBar = () => {
             justifyContent="center"
             alignItems="center"
           >
-            <IconButton variant="ghost">
+            <IconButton variant="ghost" mt="10">
               {theme.mode === "dark" ? (
                 <SunIcon></SunIcon>
               ) : (
                 <MoonIcon></MoonIcon>
               )}
             </IconButton>
-            <IconButton variant="ghost">
+            <IconButton variant="ghost" mt="10">
               <Notifications></Notifications>
             </IconButton>
             <Button
               onClick={() => {
                 dispatch(setLogout());
               }}
+              mt="10"
             >
               Logout
             </Button>

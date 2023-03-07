@@ -19,7 +19,7 @@ const LoginPage = () => {
         <Box textAlign="center" bg="background.alt">
           <Text
             fontWeight="extrabold"
-            fontSize="3xl"
+            fontSize="4xl"
             p="3"
             color="primary.main"
           >
@@ -34,7 +34,7 @@ const LoginPage = () => {
           mb="10"
           bg="background.alt"
           p="12"
-          w="50%"
+          w={["90%", "50%"]}
           rounded="8"
         >
           <Form />
