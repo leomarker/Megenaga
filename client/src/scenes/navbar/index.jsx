@@ -21,7 +21,7 @@ import {
   Menu,
   Close,
 } from "@mui/icons-material";
-import { SearchIcon, SunIcon, MoonIcon } from "@chakra-ui/icons";
+import { SearchIcon, SunIcon, MoonIcon, CloseIcon } from "@chakra-ui/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { setMode, setLogout } from "../../state";
 import { useNavigate } from "react-router-dom";
@@ -47,12 +47,12 @@ const NavBar = () => {
       justifyContent="space-between"
       alignItems="center"
       bg="background.alt"
-      px="36"
+      px={[12, 18, 24, 36]}
     >
       <Box display="flex" p="5">
         <Text
           fontWeight="extrabold"
-          fontSize="3xl"
+          fontSize={["2xl", "3xl"]}
           color="primary.main"
           onClick={() => navigate("/home")}
           _hover={{ cursor: "pointer" }}
@@ -94,11 +94,27 @@ const NavBar = () => {
           </Button>
         </Flex>
       ) : (
-        <IconButton
-          onClick={() => setIsMobileMenuToggled(!isMobileMenuToggled)}
-        >
+        <IconButton onClick={() => setIsMobileScreen(!isMobileScreen)}>
           <Menu />
         </IconButton>
+      )}
+      {!isNotMobileScreen[0] && isMobileScreen && (
+        <Box
+          position="fixed"
+          right="0"
+          bottom="0"
+          h="full"
+          zIndex="10"
+          maxWidth={"500px"}
+          minWidth={"300px"}
+          bg="background.default"
+        >
+          <Box display="flex" justifyContent="end" p="9">
+            <IconButton onClick={() => setIsMobileScreen(!isMobileScreen)}>
+              <CloseIcon />
+            </IconButton>
+          </Box>
+        </Box>
       )}
     </Flex>
   );
