@@ -114,6 +114,29 @@ const NavBar = () => {
               <CloseIcon />
             </IconButton>
           </Box>
+          <Flex
+            flexDirection="column"
+            justifyContent="center"
+            alignItems="center"
+          >
+            <IconButton variant="ghost">
+              {theme.mode === "dark" ? (
+                <SunIcon></SunIcon>
+              ) : (
+                <MoonIcon></MoonIcon>
+              )}
+            </IconButton>
+            <IconButton variant="ghost">
+              <Notifications></Notifications>
+            </IconButton>
+            <Button
+              onClick={() => {
+                dispatch(setLogout());
+              }}
+            >
+              Logout
+            </Button>
+          </Flex>
         </Box>
       )}
     </Flex>
