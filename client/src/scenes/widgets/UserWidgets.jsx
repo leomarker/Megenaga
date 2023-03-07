@@ -51,6 +51,11 @@ const UserWidgets = ({ userId, picturePath }) => {
       <Flex pb="1.1rem">
         <Flex>
           <UserImage image={picturePath}></UserImage>
+          <Box>
+            <Text fontSize="50px" color="tomato">
+              {firstName} {lastName}
+            </Text>
+          </Box>
         </Flex>
         <ManageAccountsOutlined />
       </Flex>
