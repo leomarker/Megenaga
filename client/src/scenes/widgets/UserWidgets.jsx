@@ -9,6 +9,7 @@ import {
   WorkOutlineOutlined,
 } from "@mui/icons-material";
 import { Box, Text, Divider, Flex } from "@chakra-ui/react";
+import UserImage from "../../components/userImage";
 
 const UserWidgets = ({ userId, picturePath }) => {
   const navigate = useNavigate();
@@ -40,6 +41,7 @@ const UserWidgets = ({ userId, picturePath }) => {
     friends,
   } = user;
 
+  console.log(user);
   return (
     <Box
       padding={"1.5rem 1.5rem 0.75rem 1.5rem"}
@@ -47,7 +49,9 @@ const UserWidgets = ({ userId, picturePath }) => {
       borderRadius="lg"
     >
       <Flex pb="1.1rem">
-        <Flex></Flex>
+        <Flex>
+          <UserImage image={picturePath}></UserImage>
+        </Flex>
         <ManageAccountsOutlined />
       </Flex>
     </Box>

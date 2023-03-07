@@ -16,7 +16,6 @@ exports.register = async (req, res, next) => {
     } = req.body;
 
     const userExist = await User.findOne({ email: email });
-    console.log(userExist);
     if (!userExist) {
       const salt = await bcrypt.genSalt();
       const hashedPassword = await bcrypt.hash(password, salt);
