@@ -4,14 +4,10 @@ import {
   Box,
   IconButton,
   Text,
-  Select,
-  MenuItem,
-  FormControl,
   Input,
   useTheme,
   useMediaQuery,
   Flex,
-  Spacer,
   Button,
 } from "@chakra-ui/react";
 
@@ -31,7 +27,7 @@ import { setMode, setLogout } from "../../state";
 import { useNavigate } from "react-router-dom";
 
 const NavBar = () => {
-  const [isMobileScreen, setIsMobileScreen] = useState("");
+  const [isMobileScreen, setIsMobileScreen] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
@@ -45,6 +41,7 @@ const NavBar = () => {
   // const alt = theme.background.alt;
   const fullName = `${user.firstName} ${user.lastName}`;
 
+  console.log(isNotMobileScreen);
   return (
     <Flex
       justifyContent="space-between"
@@ -62,7 +59,7 @@ const NavBar = () => {
         >
           Megenaga
         </Text>
-        {isNotMobileScreen && (
+        {isNotMobileScreen[0] && (
           <Flex borderRadius="lg" bg="neutral.light" ml="7">
             <Input
               placeholder="search..."
@@ -75,7 +72,7 @@ const NavBar = () => {
           </Flex>
         )}
       </Box>
-      {isNotMobileScreen ? (
+      {isNotMobileScreen[0] ? (
         <Flex>
           <IconButton variant="ghost">
             {theme.mode === "dark" ? (
