@@ -2,9 +2,12 @@ import React from "react";
 import { Box } from "@chakra-ui/react";
 import { useMediaQuery } from "@chakra-ui/react";
 import NavBar from "../navbar/index";
+import { useSelector } from "react-redux";
+import UserWidgets from "../widgets/UserWidgets";
 
 const HomePage = () => {
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
+  const { _id, picturePath } = useSelector((state) => state.user);
   return (
     <Box bg="background.default" height="full">
       <NavBar />
@@ -15,7 +18,9 @@ const HomePage = () => {
         gap="0.5rem"
         justifyContent="space-between"
       >
-        <Box></Box>
+        <Box flexBasis={isNonMobileScreens ? "25%" : undefined}>
+          <UserWidgets userId={_id} picturePath={picturePath}></UserWidgets>
+        </Box>
         <Box></Box>
         <Box></Box>
       </Box>
